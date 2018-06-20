@@ -7,6 +7,38 @@
 const app = require('../app');
 const debug = require('debug')('world-cup-api:server');
 const http = require('http');
+const mongoose = require('mongoose')
+
+const { 
+  WCA_MONGODB_CONNECTION_URI,
+  WCA_MONGODB_CONNECTION_USERNAME,
+  WCA_MONGODB_CONNECTION_PASSWORD
+} = process.env
+
+const hasRequiredEnvironmentVariables = () => {
+  if (
+    WCA_MONGODB_CONNECTION_URI &&
+    WCA_MONGODB_CONNECTION_USERNAME &&
+    WCA_MONGODB_CONNECTION_PASSWORD
+  ) { 
+    return true
+  }
+  return false
+}
+
+if (!hasRequiredEnvironmentVariables()) {
+  console.error(
+    'Error: Required environment variables are not set. Exiting.'
+  )
+  process.exit(1)
+}
+
+const MONGODB_CONNECTION_URL = (
+  `mongodb://` +
+  `${WCA_MONGODB_CONNECTION_USERNAME}:` +
+  `${encodeURIComponent(WCA_MONGODB_CONNECTION_PASSWORD)}@` +
+  `${WCA_MONGODB_CONNECTION_URI}`
+)
 
 /**
  * Normalize a port into a number, string, or false.
@@ -67,6 +99,21 @@ const onListening = () => {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+/**
+ * Connect to MongoDB
+ */
+// Connect to MongoDB
+mongoose.connect(
+  MONGODB_CONNECTION_URL
+).then((_) => {
+  console.log('Database connection successfully established.')
+}).catch((error) => {
+  console.error("There was an error connecting to database:")
+  console.error(error.message)
+  console.log('EXITING.')
+  process.exit(1)
+})
 
 
 /**
