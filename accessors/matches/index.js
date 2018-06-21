@@ -9,7 +9,8 @@ const Match = require('../../models/Match')
 const matches = (searchOptions = {}, sortOptions = { date: 1 }) => {
   const {
     startDate,
-    endDate
+    endDate,
+    ids
   } = searchOptions
 
   // Construct DB search object based on
@@ -28,6 +29,15 @@ const matches = (searchOptions = {}, sortOptions = { date: 1 }) => {
       date: {
         ...search.date,
         $lt: new Date(endDate)
+      }
+    }
+  }
+  if (ids) {
+    // Search for specific set of matches by IDs
+    search = {
+      ...search,
+      _id: {
+        $in: [...ids]
       }
     }
   }
