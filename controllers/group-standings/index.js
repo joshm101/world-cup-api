@@ -1,6 +1,5 @@
 const groupDataAccessor = require('../../accessors/groups')
 const matchDataAccessor = require('../../accessors/matches')
-const teamDataAccessor = require('../../accessors/teams')
 
 /**
  * Calculates final score given an array of
