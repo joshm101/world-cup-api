@@ -75,7 +75,8 @@ const matches = (req, res) => {
             homeTeamGoalsByHalf,
             awayTeamGoalsByHalf,
             homeTeam,
-            awayTeam
+            awayTeam,
+            inProgress: !!match.inProgress
           }
         })
       })
