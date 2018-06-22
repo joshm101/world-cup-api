@@ -151,7 +151,7 @@ const processIndividualGroup = (group) => {
     ).sort((teamStandingA, teamStandingB) => {
       // sort each group standing stats object by its
       // "points" property value.
-      return teamStandingA.points - teamStandingB.points
+      return teamStandingB.points - teamStandingA.points
     })
   ).then(sortedGroupStandings =>
     ({
