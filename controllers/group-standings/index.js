@@ -30,7 +30,7 @@ const matchStats = (match) => {
   const homeTeamScore = calculateFinalScore(homeTeamGoalsByHalf)
   const awayTeamScore = calculateFinalScore(awayTeamGoalsByHalf)
 
-  if (homeTeamScore !== null && awayTeamScore !== null) {
+  if (homeTeamScore !== null && awayTeamScore !== null){
     // goalDifference can be derived from goalsFor - goalsAgainst,
     // so it's probably best not to include that data explicitly.
     // Value can easily be computed by the client.
@@ -128,7 +128,9 @@ const processIndividualGroup = (group) => {
 
   // Reduce matches into an array of match stat objects
   const groupMatchesStatsPromise = matchesPromise.then((matches) => {
-    return matches.reduce((statsArray, match) => {
+    return matches.filter(match =>
+      !match.inProgress
+    ).reduce((statsArray, match) => {
       return statsArray.concat(
         [...matchStats(match)]
       )
