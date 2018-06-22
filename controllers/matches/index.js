@@ -45,8 +45,8 @@ const matches = (req, res) => {
       // homeTeam and awayTeam objects
       matches.map((match) => {
         const teamIds = [match.homeTeam, match.awayTeam]
-        const teams = teamDataAccessor.teamsById(
-          teamIds
+        const teams = teamDataAccessor.teams(
+          { ids: teamIds }
         ).catch((error) => {
           console.error(
             'Error occurred while expanding team data: ', error.message

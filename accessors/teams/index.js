@@ -1,24 +1,29 @@
 const Team = require('../../models/Team')
 
 /**
- * Retrieves teams from the DB by their IDs
- * @param {ObjectID[]} ids - IDs of teams to
- * retrieve
- * @return {Promise<Team[]>} - Teams array
- * wrapped in a Promise
+ * Retrieves teams from database
+ * @param {object} searchOptions - key-value search options
+ * @return {object[]} Found teams
  */
-const teamsById = (ids = []) => {
-  // Map over ID array and retrieve
-  // each Team
-  return Promise.all(
-    ids.map(_id =>
-      Team.findOne({
-        _id
-      })
-    )
-  )
+const teams = (searchOptions = {}) => {
+  const { ids } = searchOptions
+
+  // Construct DB search object based on
+  // provided search params
+  let search = {}
+  if (ids) {
+    // Search for specific set of teams by IDs
+    search = {
+      ...search,
+      _id: {
+        $in: [...ids]
+      }
+    }
+  }
+
+  return Team.find(search)
 }
 
 module.exports = {
-  teamsById
+  teams
 }

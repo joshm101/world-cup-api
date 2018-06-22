@@ -20,7 +20,7 @@ const expandGroup = (group) => {
   
   // Retrieve team objects from database
   const teamIds = teams.map(team => team._id)
-  const teamsPromise = teamDataAccessor.teamsById(teamIds)
+  const teamsPromise = teamDataAccessor.teams({ ids: teamIds })
 
   // Return new object containing group data
   // along with expanded teams and matches arrays
