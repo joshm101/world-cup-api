@@ -42,6 +42,7 @@ const teams = (req, res) => {
       res.send({
         data: teams
       })
+      return
     }
 
     // client requested expanded matches, retrieve match data 
@@ -53,6 +54,7 @@ const teams = (req, res) => {
       res.status(500).send({
         message: 'An unknown error occurred while retrieving match data for teams.'
       })
+      return
     })
 
     expandedTeamsPromise.then(teams =>
