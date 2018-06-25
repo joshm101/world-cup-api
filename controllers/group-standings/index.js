@@ -9,6 +9,9 @@ const matchDataAccessor = require('../../accessors/matches')
  * @return {number} - Final score
  */
 const calculateFinalScore = (goalsByHalf) => {
+  if (!goalsByHalf) {
+    return null
+  }
   if (goalsByHalf.length < 2) {
     return null
   }
@@ -123,7 +126,10 @@ const processIndividualGroup = (group) => {
   const matchesPromise = matchDataAccessor.matches({
     ids: matches,
     startDate: '2018-06-14',
-    endDate: new Date() < '2018-06-28' ? new Date() : '2018-06-28'
+    endDate: (
+      new Date() < new Date('2018-06-28') ?
+      new Date() : new Date('2018-06-28')
+    )
   })
 
   // Reduce matches into an array of match stat objects
