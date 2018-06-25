@@ -16,6 +16,10 @@ const calculateFinalScore = (goalsByHalf) => {
     return null
   }
 
+  if (goalsByHalf[0] === null || goalsByHalf[1] === null) {
+    return null
+  }
+
   const score = goalsByHalf[0] + goalsByHalf[1]
   return score
 }
@@ -137,6 +141,7 @@ const processIndividualGroup = (group) => {
     return matches.filter(match =>
       !match.inProgress
     ).reduce((statsArray, match) => {
+      console.log('MATCH: ', match)
       return statsArray.concat(
         [...matchStats(match)]
       )
