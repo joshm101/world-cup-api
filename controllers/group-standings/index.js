@@ -131,8 +131,8 @@ const processIndividualGroup = (group) => {
     ids: matches,
     startDate: '2018-06-14',
     endDate: (
-      new Date() < new Date('2018-06-28') ?
-      new Date() : new Date('2018-06-28')
+      new Date() < new Date('2018-06-29') ?
+      new Date() : new Date('2018-06-29')
     )
   })
 
